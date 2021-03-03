@@ -1,16 +1,25 @@
-/* eslint-disable react/prefer-stateless-function */
-import React, { Component } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react';
 import Burger from '../../components/Burger/Burger';
 
-class BuilderBuilder extends Component {
-	render() {
-		return (
-			<>
-				<Burger />
-				<div>Build Controls</div>
-			</>
-		);
-	}
-}
+const initialState = {
+	ingredients: {
+		salad: 0,
+		bacon: 0,
+		cheese: 0,
+		meat: 0,
+	},
+};
 
-export default BuilderBuilder;
+const builderBuilder = () => {
+	const [order, setOrder] = useState(initialState);
+
+	return (
+		<>
+			<Burger ingredients={order.ingredients} />
+			<div>Build Controls</div>
+		</>
+	);
+};
+
+export default builderBuilder;
