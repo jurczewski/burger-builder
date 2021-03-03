@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import Burger from '../../components/Burger/Burger';
+import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 
 const initialState = {
 	ingredients: {
@@ -17,7 +18,7 @@ const builderBuilder = () => {
 	return (
 		<>
 			<Burger ingredients={order.ingredients} />
-			<div>Build Controls</div>
+			<BuildControls />
 		</>
 	);
 };
