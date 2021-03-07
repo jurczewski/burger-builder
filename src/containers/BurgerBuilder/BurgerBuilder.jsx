@@ -37,11 +37,40 @@ const builderBuilder = () => {
 		setOrder({ totalPrice: newPrice, ingredients: updatedIngredients });
 	};
 
-	// const removeIngredientHandler = (type) => {};
+	const removeIngredientHandler = (type) => {
+		const oldCount = order.ingredients[type];
+		if (oldCount <= 0) {
+			return;
+		}
+		const updatedCount = oldCount - 1;
+		const updatedIngredients = {
+			...order.ingredients,
+		};
+		updatedIngredients[type] = updatedCount;
+
+		const priceDeduction = INGREDIENT_PRICES[type];
+		const oldPrice = order.totalPrice;
+		const newPrice = oldPrice - priceDeduction;
+
+		setOrder({ totalPrice: newPrice, ingredients: updatedIngredients });
+	};
+
+	const disabledInfo = {
+		...order.ingredients,
+	};
+
+	Object.keys(disabledInfo).forEach((key) => {
+		disabledInfo[key] = disabledInfo[key] <= 0;
+	});
+
 	return (
 		<>
 			<Burger ingredients={order.ingredients} />
-			<BuildControls ingredientAdded={addIngredientHandler} />
+			<BuildControls
+				ingredientAdded={addIngredientHandler}
+				ingredientRemoved={removeIngredientHandler}
+				disabled={disabledInfo}
+			/>
 		</>
 	);
 };
