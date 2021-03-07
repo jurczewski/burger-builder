@@ -70,6 +70,7 @@ const builderBuilder = () => {
 				ingredientAdded={addIngredientHandler}
 				ingredientRemoved={removeIngredientHandler}
 				disabled={disabledInfo}
+				price={order.totalPrice}
 			/>
 		</>
 	);
