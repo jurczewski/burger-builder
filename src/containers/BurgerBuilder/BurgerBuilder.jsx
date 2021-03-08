@@ -17,10 +17,26 @@ const initialOrder = {
 		meat: 0,
 	},
 	totalPrice: 4,
+	purchasable: false,
 };
 
 const builderBuilder = () => {
 	const [order, setOrder] = useState(initialOrder);
+
+	const updatePurchase = (ingredients) => {
+		const summed = Object.keys(ingredients)
+			.map((igKey) => {
+				return ingredients[igKey];
+			})
+			.reduce((sum, el) => {
+				return sum + el;
+			}, 0);
+
+		setOrder((prevState) => ({
+			...prevState,
+			purchasable: summed > 0,
+		}));
+	};
 
 	const addIngredientHandler = (type) => {
 		const oldCount = order.ingredients[type];
@@ -34,7 +50,12 @@ const builderBuilder = () => {
 		const oldPrice = order.totalPrice;
 		const newPrice = oldPrice + priceAddition;
 
-		setOrder({ totalPrice: newPrice, ingredients: updatedIngredients });
+		setOrder((prevState) => ({
+			...prevState,
+			totalPrice: newPrice,
+			ingredients: updatedIngredients,
+		}));
+		updatePurchase(updatedIngredients);
 	};
 
 	const removeIngredientHandler = (type) => {
@@ -52,7 +73,12 @@ const builderBuilder = () => {
 		const oldPrice = order.totalPrice;
 		const newPrice = oldPrice - priceDeduction;
 
-		setOrder({ totalPrice: newPrice, ingredients: updatedIngredients });
+		setOrder((prevState) => ({
+			...prevState,
+			totalPrice: newPrice,
+			ingredients: updatedIngredients,
+		}));
+		updatePurchase(updatedIngredients);
 	};
 
 	const disabledInfo = {
@@ -71,6 +97,7 @@ const builderBuilder = () => {
 				ingredientRemoved={removeIngredientHandler}
 				disabled={disabledInfo}
 				price={order.totalPrice}
+				purchasable={order.purchasable}
 			/>
 		</>
 	);
