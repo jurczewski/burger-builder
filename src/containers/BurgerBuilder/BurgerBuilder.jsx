@@ -116,6 +116,7 @@ const builderBuilder = () => {
 			<Modal show={order.purchasing} modalClosed={purchaseCancelHandler}>
 				<OrderSummary
 					ingredients={order.ingredients}
+					price={order.totalPrice}
 					purchaseCancelled={purchaseCancelHandler}
 					purchaseContinued={purchaseContinueHandler}
 				/>
