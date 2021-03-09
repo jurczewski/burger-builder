@@ -98,6 +98,11 @@ const builderBuilder = () => {
 		}));
 	};
 
+	const purchaseContinueHandler = () => {
+		// eslint-disable-next-line no-alert
+		alert('You continue');
+	};
+
 	const disabledInfo = {
 		...order.ingredients,
 	};
@@ -109,7 +114,11 @@ const builderBuilder = () => {
 	return (
 		<>
 			<Modal show={order.purchasing} modalClosed={purchaseCancelHandler}>
-				<OrderSummary ingredients={order.ingredients} />
+				<OrderSummary
+					ingredients={order.ingredients}
+					purchaseCancelled={purchaseCancelHandler}
+					purchaseContinued={purchaseContinueHandler}
+				/>
 			</Modal>
 			<Burger ingredients={order.ingredients} />
 			<BuildControls
