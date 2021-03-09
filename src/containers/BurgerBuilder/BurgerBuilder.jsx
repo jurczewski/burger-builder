@@ -91,6 +91,13 @@ const builderBuilder = () => {
 		}));
 	};
 
+	const purchaseCancelHandler = () => {
+		setOrder((prevState) => ({
+			...prevState,
+			purchasing: false,
+		}));
+	};
+
 	const disabledInfo = {
 		...order.ingredients,
 	};
@@ -101,7 +108,7 @@ const builderBuilder = () => {
 
 	return (
 		<>
-			<Modal show={order.purchasing}>
+			<Modal show={order.purchasing} modalClosed={purchaseCancelHandler}>
 				<OrderSummary ingredients={order.ingredients} />
 			</Modal>
 			<Burger ingredients={order.ingredients} />
